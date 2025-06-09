@@ -9,11 +9,37 @@
 
 # Smartthings Homebridge Plugin 
 
-This is yet another smartthings plugin for Homebridge.  This requires no access to the legacy smartthings app, and doesn't
+This is a smartthings plugin for Homebridge.  This requires no access to the legacy smartthings app, and doesn't
 require a lot of work to install.  It will discover devices automatically as well as unregister devices that are removed
 from your smarttthings network.  This is currently under development.
 
-## Fixed in version 1.5.10-beta.0, beta.1
+## Fixed in version 1.5.20
+* Fixed discovery of devices issue where some fans were set up as lights
+## Fixed in version 1.5.19
+* Handle multi component devices that don't have a "main" component supported by plugin
+## Fixed in version 1.5.17
+* Handle shades that don't support shadelevel but do support switchlevel.  FIXED
+## Fixed in version 1.5.16
+* Handle shades that don't support shadelevel but do support switchlevel
+## New in version 1.5.15
+* Support for optional capaiblities declaration
+* AirConditionerService adds fan oscillation switch and optional mode switch only if supported by device's capabilitites
+## New in version 1.5.14
+* Support for air conditioners optional modes (i.e., Sleep, Speed, WindFree, WindFreeSleep)
+* Stop logging warning if battery is low
+* Issue with thermostat service making homebridge crash.  If we can't get a status from the thermostat we will return zero for temp to
+avoid crash.
+## Fixed in version 1.5.13
+* Handle invalid response to "getLevel" call in lightservice.  There is a Zooz driver that 
+does not return a valid response causing homebridge to fail.
+## New in version 1.5.12
+* Updated dependencies
+## Fixed / New in version 1.5.11
+* Added air conditioner support thanks to lucaponzanelli
+* Fixed window shade support (wasn't showing up)
+## Fixed in version 1.5.10
+Fixed window shade support including webhook support for the window shade service.  Added polling paramter for window shades, 
+'PollWindowShadesSeconds'
 ## Fixed in version 1.5.9
 * Removed the check for the apostrophe as it caused more issues than solved.  With this change, if you try to add a device
 that has a label like "bill's iphone" it may not get excluded, but it solves other issues.

@@ -31,7 +31,7 @@ export class IKHomeBridgeHomebridgePlatform implements DynamicPlatformPlugin {
   });
 
   private accessoryObjects: MultiServiceAccessory[] = [];
-  private subscriptionHandler: SubscriptionHandler|undefined = undefined;
+  private subscriptionHandler: SubscriptionHandler | undefined = undefined;
 
   constructor(
     public readonly log: Logger,
@@ -236,13 +236,23 @@ export class IKHomeBridgeHomebridgePlatform implements DynamicPlatformPlugin {
 
   findSupportedCapability(device): boolean {
     // Look at capabilities on main component
-    const component = device.components.find(c => c.id === 'main');
+    // const component = device.components.find(c => c.id === 'main');
 
-    if (component) {
-      return (component.capabilities.find((ca) => MultiServiceAccessory.capabilitySupported(ca.id)));
-    } else {
-      return (device.components[0].capabilities.find((ca) => MultiServiceAccessory.capabilitySupported(ca.id)));
-    }
+    // if (component) {
+    //   return (component.capabilities.find((ca) => MultiServiceAccessory.capabilitySupported(ca.id)));
+    // } else {
+    //   return (device.components[0].capabilities.find((ca) => MultiServiceAccessory.capabilitySupported(ca.id)));
+    // }
+
+    // Look at capabiliiies on all components
+
+    let found = false;
+    device.components.forEach(component => {
+      if (!found && component.capabilities.find((ca) => MultiServiceAccessory.capabilitySupported(ca.id))) {
+        found = true;
+      }
+    });
+    return found;
   }
 
   createAccessoryObject(device, accessory): MultiServiceAccessory {
@@ -255,7 +265,7 @@ export class IKHomeBridgeHomebridgePlatform implements DynamicPlatformPlugin {
     //   capabilities = device.components[0].capabilities;
     // }
 
-    const acc =  new MultiServiceAccessory(this, accessory);
+    const acc = new MultiServiceAccessory(this, accessory);
     device.components.forEach(component => {
       acc.addComponent(component.id, component.capabilities.map((c) => c.id));
     });

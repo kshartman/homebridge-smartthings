@@ -66,6 +66,24 @@
         "required": false,
         "default": 20
       },
+      "ExposeHumiditySensorForAirConditioners": {
+        "title": "Expose humidity Sensor for air Conditioners if available.",
+        "type": "boolean",
+        "required": false,
+        "default": false
+      },
+      "OptionalModeForAirConditioners": {
+        "title": "Select what optional mode to use as additional switch in air conditioners.",
+        "type": "string",
+        "required": false,
+        "enum": [
+          "Sleep",
+          "Speed",
+          "WindFree",
+          "WindFreeSleep"
+        ],
+        "default": "None"
+      },
       "IgnoreLocations": {
         "title": "Locations to Ignore",
         "type": "array",
